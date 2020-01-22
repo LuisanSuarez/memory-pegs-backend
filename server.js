@@ -4,11 +4,17 @@ const express = require('express');
 let cors = require('cors');
 const bodyParser = require('body-parser');
 const Data = require('./data');
+const formidable = require('formidable');
 
 
 const API_PORT = process.env.API_PORT || 8000;
 const app = express();
 app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 const router = express.Router();
 
 const collection = "buenas-noches-test";
@@ -36,7 +42,7 @@ app.get('/getImageUrl', (req, res) => {
     const data = req.query;
   Data.find(data, (err, data) => {
     if (err) return res.json({ success: false, error: err });
-    console.log(data)
+    // console.log(data)
     return res.json({ success: true, data: data });
   });
 });
@@ -105,6 +111,7 @@ app.put('/updateData', (req, res) => {
   //   if (err) return res.json({ success: false, error: err });
   //   return res.json({ success: true });
   // });
+  return res.json("hello friend")
 });
 
 
@@ -123,3 +130,22 @@ app.use('/', router);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+
+
+
+//HANDLE FILE UPLOADS
+// app.post('/mypegs/file-upload', (req, res) => {
+app.post('/postData', (req, res) => {
+  console.log("running here")
+  new formidable.IncomingForm().parse(req, (err, fields, files) => {
+    if (err) {
+      console.error('Error', err)
+      throw err
+    }
+    console.log('Fields', fields)
+    console.log('Files', files)
+    for (const file of Object.entries(files)) {
+      console.log(file)
+    }
+  })
+})
