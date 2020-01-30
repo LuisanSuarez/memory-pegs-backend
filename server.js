@@ -35,6 +35,7 @@ app.get("/", function(req, res) {
 
   // // Cookies that have been signed
   console.log("Signed Cookies: ", req.signedCookies);
+  return res.json({ data: "server running!" });
 });
 const router = express.Router();
 
