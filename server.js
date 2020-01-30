@@ -61,7 +61,7 @@ async function getTokenForServer(req) {
 
 // // this is our MongoDB database
 //WE WILL TRY REMOVING ${COLLECTION} AND SETTING THE COLLECTIONON SCHEMAS
-const dbRoute = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@memory-pegs-image-database-uorex.mongodb.net/images?retryWrites=true&w=majority`;
+const dbRoute = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.CLUSTER}/images?retryWrites=true&w=majority`;
 // // connects our back end code with the database
 mongoose.connect(dbRoute, {
   useNewUrlParser: true,
