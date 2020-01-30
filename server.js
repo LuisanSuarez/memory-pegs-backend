@@ -7,7 +7,7 @@ const DataSchema = require("./data");
 const formidable = require("formidable");
 var cookieParser = require("cookie-parser");
 let Data;
-const API_PORT = process.env.API_PORT || 8000;
+const API_PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cookieParser());
 app.use(cors());
@@ -35,7 +35,7 @@ app.get("/", function(req, res) {
 
   // // Cookies that have been signed
   console.log("Signed Cookies: ", req.signedCookies);
-  return res.json({ data: "server running!" });
+  return res.json("Up and running!");
 });
 const router = express.Router();
 
